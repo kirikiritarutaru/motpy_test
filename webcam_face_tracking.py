@@ -69,15 +69,15 @@ def run():
         'r_var_pos': 0.1
     }
 
-    # dt = 1 / 15.0
-    dt = 1 / 30.0
-    tracker = MultiObjectTracker(dt=dt, model_spec=model_spec)
-
     cap = cv2.VideoCapture(0)
+    fps = round(cap.get(cv2.CAP_PROP_FPS), 0)
+
+    dt = 1 / fps
+    tracker = MultiObjectTracker(dt=dt, model_spec=model_spec)
 
     face_detector = FaceDetector()
 
-    while True:
+    while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
@@ -97,6 +97,7 @@ def run():
         for track in tracks:
             draw_track(frame, track)
 
+        # 画像小さいから大きく
         frame = cv2.resize(frame, dsize=None, fx=3.0, fy=3.0)
         cv2.imshow('frame', frame)
 
