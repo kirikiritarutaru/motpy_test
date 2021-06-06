@@ -98,7 +98,7 @@ def run():
             draw_track(frame, track)
 
         # 画像小さいから大きく
-        frame = cv2.resize(frame, dsize=None, fx=3.0, fy=3.0)
+        frame = cv2.resize(frame, dsize=None, fx=4.0, fy=4.0)
         cv2.imshow('frame', frame)
 
         if cv2.waitKey(1) == ord('q'):
